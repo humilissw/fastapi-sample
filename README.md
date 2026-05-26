@@ -1,67 +1,78 @@
-# FastAPI Starter
+# Backend
 
-Deploy your [FastAPI](https://fastapi.tiangolo.com/) project to Vercel with zero configuration.
+## Prerequisites
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/vercel/vercel/tree/main/examples/fastapi&template=fastapi)
+- Setup Poetry by running the setup_poetry.py script.
 
-_Live Example: https://vercel-plus-fastapi.vercel.app/_
+## Helpful Reading
 
-Visit the [FastAPI documentation](https://fastapi.tiangolo.com/) to learn more.
+- https://fastapi.tiangolo.com/async/#asynchronous-code
 
-## Project Structure
+## FastAPI
 
-This example follows the [larger applications](https://fastapi.tiangolo.com/tutorial/bigger-applications/) pattern from the FastAPI docs:
+The backend uses FastAPI.
 
-```
-app/
-├── __init__.py
-├── main.py              # FastAPI application entry point
-├── templates/
-│   └── index.html       # Landing page template
-├── api/
-│   ├── __init__.py
-│   ├── main.py          # API router assembly
-│   ├── deps.py          # Shared dependencies
-│   └── routes/
-│       ├── __init__.py
-│       └── items.py     # Item endpoints
-└── core/
-    ├── __init__.py
-    └── config.py        # Application settings
-```
+## Poetry
 
-## Getting Started
+Poetry is a tool for dependency management and packaging in python.
 
-Install the required dependencies using [uv](https://docs.astral.sh/uv/):
+https://python-poetry.org/docs/#installation
+https://python-poetry.org/docs/basic-usage/
+https://python-poetry.org/docs/managing-environments/#activating-the-environment
 
-```bash
-uv sync
+---
+This section is a work in progress.
+
+### Windows
+
+1. First install [scoop](https://scoop.sh/).
+
+```powershell
+Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+Invoke-RestMethod -Uri https://get.scoop.sh | Invoke-Expression
 ```
 
-## Running Locally
+1. Then install [pipx](https://github.com/pypa/pipx?tab=readme-ov-file#on-windows).
 
-```bash
-vercel dev
+```powershell
+scoop install pipx
+pipx ensurepath
 ```
 
-## API Endpoints
+1. Then install [poetry](https://python-poetry.org/docs/#installing-with-pipx).
 
-| Method | Path | Description |
-|--------|------|-------------|
-| `GET` | `/` | Landing page |
-| `GET` | `/api/v1/items/` | List sample items |
-| `GET` | `/api/v1/items/{item_id}` | Get item by ID |
-| `GET` | `/docs` | Interactive API docs (Swagger UI) |
-
-## Deploying to Vercel
-
-Deploy your project to Vercel with the following command:
-
-```bash
-npm install -g vercel
-vercel --prod
+```powershell
+pipx install poetry
 ```
 
-Or `git push` to your repository with our [git integration](https://vercel.com/docs/deployments/git).
+1. Finally, ensure you close all terminals/instances of Visual Studio Code (vscode) so you don't have issues with your path.
 
-To view the source code for this template, [visit the example repository](https://github.com/vercel/vercel/tree/main/examples/fastapi).
+* If you need to upgrade, merely run: `pipx upgrade poetry`.
+* If you need to uninstall: `pipx uninstall poetry`.
+
+1. Then install the dependencies:
+
+```shell
+> cd src/be/afcapp_root
+## activate the virtual env
+> Invoke-Expression (poetry env activate)
+# install the project dependencies
+> poetry install
+## run the app - no ssl
+# > poetry run uvicorn app.main:app --reload
+## run the app - with SSL (required now)
+> poetry run uvicorn app.main:app --reload --ssl-certfile=../../infrastructure/certs/cert.pem --ssl-keyfile=../../infrastructure/certs/key.pem
+```
+
+### Mac/Linux
+
+```shell
+## setup poetry
+> python3 setup_poetry.py
+## activate the virtual env
+> Invoke-Expression (poetry env activate)
+## run the app
+> poetry run fastapi dev main.py
+```
+
+# Housekeeping stuff
