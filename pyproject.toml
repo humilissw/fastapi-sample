@@ -183,6 +183,9 @@ skips = [
     "B110",  # try_except_pass - intentional pass for graceful fallback
 ]
 
+[tool.poetry.requires-plugins]
+poetry-plugin-export = ">=1.8"
+
 [tool.poetry.dependencies]
 mariadb = {allow-prereleases = true}
 
